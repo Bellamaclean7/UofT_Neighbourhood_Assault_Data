@@ -21,6 +21,7 @@ bibliography: references.bib
 library(tidyverse)
 library(knitr)
 library(ggplot2)
+library(readr)
 
 #read in cleaned data #
 uoft_neighbourhoods <- read.csv(here::here("outputs/data/cleaned_data.csv"))
@@ -31,7 +32,7 @@ surrounding_neighbourhoods <- read.csv(here::here("outputs/data/analysis_data.cs
 show_col_types = FALSE
 ```
 
-# Introduction
+## Introduction
 
 Toronto is a city known for its vibrant culture and diverse neighborhoods and is home to one of Canada's most prestigious educational institutions – the University of Toronto. The University of Toronto encompasses and shapes the nearby areas of Bay-Cloverhill, The Annex, University district, and Kensington-Chinatown. These neighbourhoods are home to both an abundance of UofT academic and student buildings and a large student population. This paper examines assault rates from 2014 to 2023 in 13 of Toronto's 158 recignized neighbourhoods, using data from OpenDataToronto [@rOpenDataToronto], to understand the safety landscape of the University of Toronto in relation to assault rates over a ten-year period.
 
@@ -44,6 +45,51 @@ The definition of assault in Canada under Sections 265 and 266 of the Criminal C
 To examine the rate of assaults within and around the University of Toronto from 2014-2023, this paper has been organized into the following sections: Data, Results, Discussion, and Conclusion.  In the Data section, I discuss the nature of the spreadsheet obtained through the City of Toronto’s OpenDataToronto Library [@rOpenDataToronto] and the steps I took to clean and analyze the data. The Results section highlights trends found during the analysis process, while the Discussion section further evaluates the trends and presents insight. Lastly, the Conclusion section summarizes the main findings from this paper.
 
 \newpage
+
+## Data
+The data utilized throughout this paper was obtained through the City of Toronto’s OpenDataToronto Library [@rOpenDataToronto]. The data set used is entitled 'Neighbourhood Crime Rates' [@citeTorontoCrimeRates]. Data was collected and analyzed using the statistical programming software R [@r], with additional support from `tidyverse` [@rTidyverse], `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], `tibble` [@rTibble], `janitor` [@rJanitor], and `knitr` [@rknitr].
+
+###Source and Data Collection
+This dataset includes the Crime Data by Neighbourhood. Counts are available for Assault, Auto Theft, Break and Enter, Robbery, Theft Over, Homicide and Shooting & Firearm Discharges. Data also includes the crime rate per 100,000 population calculated using the population estimates provided by Environics Analytics. Comparing to crime count, crime rate provides a fairer comparison of the crime over time by taking into account the change in population in the region. The data was last refreshed on Jan 11, 2024 and is refreshed anually. 
+I conducted the first step of basic data cleaning to eliminate all counts and rates not applicable to this paper, so all I was left with was assault rates per neighbourhood for each year. I then refined the nieghbourhoods to include only those that encompass the University of Toronto and then its surrounding areas. The city of Toronto recognizes 158 unique Neighbourhoods and of the 158, 13 have been included in the cleaned data.
+
+###University of Toronto Neighbourhoods
+The 'Neighbourhood Crime Rates' dataset was filtered to focus solely on assault rates. This entailed discarding unrelated crime statistics and zeroing in on annual assault rate data per neighbourhood. The next crucial step was to narrow down the neighbourhoods to the four aforementioned areas central to the University of Toronto. These neighbourhoods are 4 of the 158 legitamate neighbourhoods recognized by the city of Toronto and can be seen in figure (PICTURE REF> HERE). This selective focus was vital to the study's goal of examining crime trends in university-adjacent areas (See Table \@ref(tbl-cleaned_uoft_neighbourhood_data)).
+
+
+```{r}
+#| message: false
+#| echo: false
+#| label: tbl-cleaned_uoft_neighbourhood_data
+#| tbl-cap: Sample of Cleaned Data on Assault Rates in University of Toronto Neighbourhoods
+
+# Displaying the first 5 rows of the dataset
+head(cleaned_data, 5) |>
+  kable(
+    col.names = c("Neighbourhood", "Assault Rate 2014", "Assault Rate 2015", "Assault Rate 2016", "Assault Rate 2017", "Assault Rate 2018", "Assault Rate 2019", "Assault Rate 2020", "Assault Rate 2021", "Assault Rate 2022", "Assault Rate 2023"),
+    booktabs = TRUE
+  )
+```
+
+
+###University of Toronto Surrounding Areas
+The scope was then expanded to encompass neighbourhoods surrounding the primary four that make up the University of Toronto. This was done to understand the peripheral impact and the broader context of assault rates around the university. This secondary cleaning phase involved identifying and including adjacent neighbourhoods, thereby painting a more holistic picture of the university's neighbourhood safety landscape (See Table \@ref(tbl-cleaned_surrounding_neighbourhood_data)). These neighbourhoods make up 10 of the 158 legitimate neighbourhoods recognized by the city of Toronto and can be seen in figure (PICTURE REF> HERE).
+
+```{r}
+#| message: false
+#| echo: false
+#| label: tbl-cleaned_surrounding_neighbourhood_data
+#| tbl-cap: Sample of Cleaned Data on Assault Rates in Surrounding Neighbourhoods
+
+# Displaying the first 5 rows of the dataset
+head(surrounding_neighbourhoods, 5) |>
+  kable(
+    col.names = c("Neighbourhood", "Assault Rate 2014", "Assault Rate 2015", "Assault Rate 2016", "Assault Rate 2017", "Assault Rate 2018", "Assault Rate 2019", "Assault Rate 2020", "Assault Rate 2021", "Assault Rate 2022", "Assault Rate 2023"),
+    booktabs = TRUE
+  )
+```
+
+##Results
 
 
 # References
