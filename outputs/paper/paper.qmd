@@ -22,6 +22,8 @@ library(tidyverse)
 library(knitr)
 library(ggplot2)
 library(readr)
+library(dplyr)
+library(tidyr)
 
 #read in cleaned data #
 uoft_neighbourhoods <- read.csv(here::here("outputs/data/cleaned_data.csv"))
@@ -90,7 +92,62 @@ head(surrounding_neighbourhoods, 5) |>
 ```
 
 ##Results
+###Assault Rates per University of Toronto Neighbourhood 
+Over the past decade University of Toronto's encompassing neighbourhoods have exhibited unique trends in assault rates. "Kensington-Chinatown" shows a erratic pattern, peaking around 2018 followed by a sharp decline in 2019 and a subsequent rise again. "The Annex" demonstrates a generally consitent, however, slight upward trend. Both "Bay-Cloverhill" and "University" show quite inconsistent patterns with several fluctuations over the ten year time span. What is most notable is Universities steady increase from 2020 on. (\@ref(fig-assaults_per_year_uoft)) shows the assault rates per year for each University of Toronto neighbourhood.
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-assaults_per_year_uoft
+#| fig-cap: Assault Rates per year in University of Toronto Neighbourhoods (2014-2023)
 
+long_data <- cleaned_data |>
+  gather(key = "Year", value = "Assault_Rate", -Neighbourhood) |>
+  mutate(Year = as.numeric(str_replace(Year, "ASSAULT_RATE_", "")))
+
+# Plot the graph
+ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color = Neighbourhood)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(
+    title = "Assault Rates in University of Toronto Neighbourhoods (2014-2023)",
+    x = "Year",
+    y = "Assault Rate",
+    color = "Neighbourhood"
+  ) +
+  ylim(500, 2500) # Adjust these values based on your data's range
+
+```
+
+
+###Assault Rates per Neighbourhood in the Surrounding Areas
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-assaults_per_year_uoft
+#| fig-cap: Assault Rates per year in University of Toronto Neighbourhoods (2014-2023)
+
+long_data <- surrounding_neighbourhoods %>%
+  gather(key = "Year", value = "Assault_Rate", -Neighbourhood) %>%
+  mutate(Year = as.numeric(str_extract(Year, "\\d{4}")))
+
+# Check for NA values in Year
+sum(is.na(long_data$Year))
+
+# Plot the graph
+ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color = Neighbourhood)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(
+    title = "Assault Rates in Surrounding University of Toronto Neighbourhoods (2014-2023)",
+    x = "Year",
+    y = "Assault Rate",
+    color = "Neighbourhood"
+  ) +
+  scale_x_continuous(breaks = 2014:2023) # Make sure the breaks include all years in your data
+
+```
 
 # References
 
