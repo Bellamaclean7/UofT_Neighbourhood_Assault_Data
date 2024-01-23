@@ -124,14 +124,14 @@ ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color =
 ```{r}
 #| message: false
 #| echo: false
-#| label: fig-assaults_per_year_uoft
-#| fig-cap: Assault Rates per year in University of Toronto Neighbourhoods (2014-2023)
+#| label: fig-assaults_per_year_surounding_neighbourhoods
+#| fig-cap: Assault Rates in Surrounding Neighbourhoods
 
 long_data <- surrounding_neighbourhoods %>%
   gather(key = "Year", value = "Assault_Rate", -Neighbourhood) %>%
   mutate(Year = as.numeric(str_extract(Year, "\\d{4}")))
 
-# Check for NA values in Year
+# Checking for NA values in Year because when I was building my graph orignally the output was a graph with nothing plotted on it even though everything else looked good the Year column is producing NA values
 sum(is.na(long_data$Year))
 
 # Plot the graph
@@ -140,12 +140,12 @@ ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color =
   geom_point() +
   theme_minimal() +
   labs(
-    title = "Assault Rates in Surrounding University of Toronto Neighbourhoods (2014-2023)",
+    title = "Assault Rates in University of Toronto's Surrounding Neighbourhoods (2014-2023)",
     x = "Year",
     y = "Assault Rate",
     color = "Neighbourhood"
   ) +
-  scale_x_continuous(breaks = 2014:2023) # Make sure the breaks include all years in your data
+  scale_x_continuous(breaks = seq(from = 2014, to = 2023, by = 2)) # I added this line because it specifies the break points for the x-axis, which in this context represents the years. This line is telling ggplot2 to place axis ticks at every integer value between 2014 and 2023. I had to add this because the years were not showing up there was something wrong at the x-axis was coming up blank and therefore there was no datapoints in the graph
 
 ```
 
