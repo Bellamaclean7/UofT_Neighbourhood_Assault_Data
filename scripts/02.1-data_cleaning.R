@@ -21,7 +21,17 @@ assault_rate_data <- raw_data |>
          ASSAULT_RATE_2017, ASSAULT_RATE_2018, ASSAULT_RATE_2019, 
          ASSAULT_RATE_2020, ASSAULT_RATE_2021, ASSAULT_RATE_2022, 
          ASSAULT_RATE_2023) |>
-  rename(Neighbourhood = AREA_NAME)
+  rename(Neighbourhood = AREA_NAME,
+         `Assault Rate 2014` = ASSAULT_RATE_2014,
+         `Assault Rate 2015` = ASSAULT_RATE_2015,
+         `Assault Rate 2016` = ASSAULT_RATE_2016,
+         `Assault Rate 2017` = ASSAULT_RATE_2017,
+         `Assault Rate 2018` = ASSAULT_RATE_2018,
+         `Assault Rate 2019` = ASSAULT_RATE_2019,
+         `Assault Rate 2020` = ASSAULT_RATE_2020,
+         `Assault Rate 2021` = ASSAULT_RATE_2021,
+         `Assault Rate 2022` = ASSAULT_RATE_2022,
+         `Assault Rate 2023` = ASSAULT_RATE_2023)
 
 # Filter rows for specific neighborhoods
 surrounding_neighbourhoods <- assault_rate_data |>
