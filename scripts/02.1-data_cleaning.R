@@ -1,37 +1,37 @@
 #### Preamble ####
-# Purpose: Models... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Cleans the raw data to prepare for data anlysis 
+# Author: Bella MacLean
+# Date: 21 January 2024
+# Contact: bella.maclean@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
-
+# Pre-requisites: none
 
 #### Workspace setup ####
 library(tidyverse)
-library(rstanarm)
+library(readr)
 
-#### Read data ####
-analysis_data <- read_csv("outputs/data/analysis_data.csv")
+#### Clean data ####
+raw_data <- read_csv("inputs/data/raw_data.csv")
+View(raw_data)
 
-### Model data ####
-first_model <-
-  stan_glm(
-    formula = flying_time ~ length + width,
-    data = analysis_data,
-    family = gaussian(),
-    prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
-    prior_intercept = normal(location = 0, scale = 2.5, autoscale = TRUE),
-    prior_aux = exponential(rate = 1, autoscale = TRUE),
-    seed = 853
-  )
+# Select the specified columns and rename AREA_NAME
+assault_rate_data <- raw_data |>
+  select(AREA_NAME, 
+         ASSAULT_RATE_2014, ASSAULT_RATE_2015, ASSAULT_RATE_2016, 
+         ASSAULT_RATE_2017, ASSAULT_RATE_2018, ASSAULT_RATE_2019, 
+         ASSAULT_RATE_2020, ASSAULT_RATE_2021, ASSAULT_RATE_2022, 
+         ASSAULT_RATE_2023) |>
+  rename(Neighbourhood = AREA_NAME)
 
+# Filter rows for specific neighborhoods
+surrounding_neighbourhoods <- assault_rate_data |>
+  filter(Neighbourhood %in% c("University", "Dovercourt Village", "Palmerston-Little Italy", "Trinity Bellwoods", "West Queen West", "Wellington Place", "Bay-Cloverhill", "Yonge-Bay Corridor", "Wychwood", "Casa Loma", "Yonge-St.Clair"))
 
-#### Save model ####
-saveRDS(
-  first_model,
-  file = "outputs/models/first_model.rds"
+# View the first few rows of the dataset with renamed variables
+print(surrounding_neighbourhoods)
+
+# Save the cleaned assault rate data
+write_csv(
+  x = surrounding_neighbourhoods,
+  file = "outputs/data/analysis_data.csv"
 )
-
-
