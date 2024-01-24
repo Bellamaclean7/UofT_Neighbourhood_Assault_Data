@@ -24,6 +24,7 @@ library(ggplot2)
 library(readr)
 library(dplyr)
 library(tidyr)
+library(stringr)
 
 #read in cleaned data #
 uoft_neighbourhoods <- read.csv(here::here("outputs/data/cleaned_data.csv"))
@@ -31,6 +32,10 @@ show_col_types = FALSE
 
 #read in cleaned data #
 surrounding_neighbourhoods <- read.csv(here::here("outputs/data/analysis_data.csv"))
+show_col_types = FALSE
+
+#read in cleaned data #
+all_neighbourhoods <- read.csv(here::here("outputs/data/discussion_data.csv"))
 show_col_types = FALSE
 ```
 
@@ -52,8 +57,8 @@ To examine the rate of assaults within and around the University of Toronto from
 The data utilized throughout this paper was obtained through the City of Toronto’s OpenDataToronto Library [@rOpenDataToronto]. The data set used is entitled 'Neighbourhood Crime Rates' [@citeTorontoCrimeRates]. Data was collected and analyzed using the statistical programming software R [@r], with additional support from `tidyverse` [@rTidyverse], `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], `tibble` [@rTibble], `janitor` [@rJanitor], and `knitr` [@rknitr].
 
 ###Source and Data Collection
-This dataset includes the Crime Data by Neighbourhood. Counts are available for Assault, Auto Theft, Break and Enter, Robbery, Theft Over, Homicide and Shooting & Firearm Discharges. Data also includes the crime rate per 100,000 population calculated using the population estimates provided by Environics Analytics. Comparing to crime count, crime rate provides a fairer comparison of the crime over time by taking into account the change in population in the region. The data was last refreshed on Jan 11, 2024 and is refreshed anually. 
-I conducted the first step of basic data cleaning to eliminate all counts and rates not applicable to this paper, so all I was left with was assault rates per neighbourhood for each year. I then refined the nieghbourhoods to include only those that encompass the University of Toronto and then its surrounding areas. The city of Toronto recognizes 158 unique Neighbourhoods and of the 158, 13 have been included in the cleaned data.
+This dataset includes the Crime Data by Neighbourhood. Counts are available for Assault, Auto Theft, Break and Enter, Robbery, Theft Over, Homicide and Shooting & Firearm Discharges. Data also includes the crime rate per 100,000 population calculated using the population estimates provided by Environics Analytics. Comparing to assault count, assault rate provides a fairer comparison of the crime over time by taking into account the change in population in the region. The data was last refreshed on Jan 11, 2024 and is refreshed annually. 
+I conducted the first step of basic data cleaning to eliminate all counts and rates not applicable to this paper, so all I was left with was assault rates per neighbourhood for each year. I then refined the nieghbourhoods to include only those that encompass the University of Toronto and then its surrounding areas. The city of Toronto recognizes 158 unique neighbourhoods and of the 158, 13 have been included in the cleaned data.
 
 ###University of Toronto Neighbourhoods
 The 'Neighbourhood Crime Rates' dataset was filtered to focus solely on assault rates. This entailed discarding unrelated crime statistics and zeroing in on annual assault rate data per neighbourhood. The next crucial step was to narrow down the neighbourhoods to the four aforementioned areas central to the University of Toronto. These neighbourhoods are 4 of the 158 legitamate neighbourhoods recognized by the city of Toronto and can be seen in figure (PICTURE REF> HERE). This selective focus was vital to the study's goal of examining crime trends in university-adjacent areas (See Table \@ref(tbl-cleaned_uoft_neighbourhood_data)).
@@ -93,7 +98,7 @@ head(surrounding_neighbourhoods, 5) |>
 
 ##Results
 ###Assault Rates per University of Toronto Neighbourhood 
-Over the past decade University of Toronto's encompassing neighbourhoods have exhibited unique trends in assault rates. "Kensington-Chinatown" shows a erratic pattern, peaking around 2018 followed by a sharp decline in 2019 and a subsequent rise again. "The Annex" demonstrates a generally consitent, however, slight upward trend. Both "Bay-Cloverhill" and "University" show quite inconsistent patterns with several fluctuations over the ten year time span. What is most notable is Universities steady increase from 2020 on. (\@ref(fig-assaults_per_year_uoft)) shows the assault rates per year for each University of Toronto neighbourhood.
+Over the past decade, University of Toronto's encompassing neighbourhoods have exhibited unique trends in assault rates. "Kensington-Chinatown" shows an erratic pattern, peaking around 2018 followed by a sharp decline in 2019 and a subsequent rise again. "The Annex" demonstrates a generally consistent, however, slight upward trend. Both "Bay-Cloverhill" and "University" show quite inconsistent patterns with several fluctuations over the ten year time span. What is most notable is Universities steady increase from 2020 on. The Annex also shows an increase from 2020 on, though not as steep as University. (\@ref(fig-assaults_per_year_uoft)) shows the assault rates per year for each University of Toronto neighbourhood.
 ```{r}
 #| message: false
 #| echo: false
@@ -110,25 +115,26 @@ ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color =
   geom_point() +
   theme_minimal() +
   labs(
-    title = "Assault Rates in University of Toronto Neighbourhoods (2014-2023)",
+    title = "Assault Rates in University of Toronto 
+      Neighbourhoods (2014-2023)",
     x = "Year",
     y = "Assault Rate",
     color = "Neighbourhood"
   ) +
-  ylim(500, 2500) # Adjust these values based on your data's range
+  ylim(0, 5000) # Adjust these values based on your data's range
 
 ```
 
-
 ###Assault Rates per Neighbourhood in the Surrounding Areas
+Assault rates in the neighbourhoods surrounding the University of Toronto Neighbourhoods reveals some distinct patterns and fluctuations in the data.  Several neighbourhoods exhibit fairly stable trends with minor year-to-year changes including "Yonge-St.Clair", "Wychwood", "West Queen West, "Palmerston-Little Italy", "Case Loma" and "Trinity-Bellwoods". "Dovercourt Village" shows a slight upward trend over the decade. "Church-Wellesley" demonstrate quite a sporadic trend with several jumps and falls. From 2014-2020 "Wellington Place" shows a steep downward trend, rising from 2020-2022, however, then showing a steep decline again from 2022-2023. Several neighbourhoods exhibit quite low assault rates over the entire decade including "Yonge-St. Clair", "Casa Loma", "Palmerston-Little Italy", and "Wychwood". For a full picture of assault rates from 2014 to 2023 across various neighbourhoods surrounding the University of Toronto, please refer to (\@ref(fig-assaults_per_year_surounding_neighbourhoods)).
 ```{r}
 #| message: false
 #| echo: false
 #| label: fig-assaults_per_year_surounding_neighbourhoods
 #| fig-cap: Assault Rates in Surrounding Neighbourhoods
 
-long_data <- surrounding_neighbourhoods %>%
-  gather(key = "Year", value = "Assault_Rate", -Neighbourhood) %>%
+long_data <- surrounding_neighbourhoods |>
+  gather(key = "Year", value = "Assault_Rate", -Neighbourhood) |>
   mutate(Year = as.numeric(str_extract(Year, "\\d{4}")))
 
 # Checking for NA values in Year because when I was building my graph orignally the output was a graph with nothing plotted on it even though everything else looked good the Year column is producing NA values
@@ -140,12 +146,48 @@ ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color =
   geom_point() +
   theme_minimal() +
   labs(
-    title = "Assault Rates in University of Toronto's Surrounding Neighbourhoods (2014-2023)",
+    title = "   Assault Rates in University of Toronto's 
+Surrounding Neighbourhoods (2014-2023)",
     x = "Year",
     y = "Assault Rate",
     color = "Neighbourhood"
   ) +
   scale_x_continuous(breaks = seq(from = 2014, to = 2023, by = 2)) # I added this line because it specifies the break points for the x-axis, which in this context represents the years. This line is telling ggplot2 to place axis ticks at every integer value between 2014 and 2023. I had to add this because the years were not showing up there was something wrong at the x-axis was coming up blank and therefore there was no datapoints in the graph
+
+```
+#Discussion
+The data allows for a comparative analysis of assault rates across various neighborhoods in and around the University of Toronto from 2014 to 2023. By comparing the assault trends in the university's immediate vicinity with those of the surrounding neighborhoods, I aim to uncover underlying patterns, draw attention to areas of concern, and spark discussions around potential causative factors.
+
+The data presents a counterintuitive narrative, revealing that the University of Toronto, a Canadian fortress of education and innovation, experiences higher assault rates on average compared to its neighbouring communities. This finding challenges common perceptions of campus environments as insulated and safe. People often believe that a university is a safe bubble, away from the problems of the outside world, especially at a prestigious university focused on cutting edge learning and progress. However, that is not what the data portrays. (See\@ref(fig-assaults_per_year_per_neighbourhoods))
+
+
+```{r assault-rates-line-plot, fig.width=12, fig.height=8, echo=FALSE}
+#| message: false
+#| echo: false
+#| label: fig-assaults_per_year_per_neighbourhoods
+#| fig-cap: Assault Rates per year Across All Neighbourhoods (2014-2023)
+
+# Your data preparation code
+long_data <- all_neighbourhoods |>
+  gather(key = "Year", value = "Assault_Rate", -Neighbourhood) |>
+  mutate(Year = as.numeric(str_extract(Year, "\\d{4}")))
+
+# Plot the graph with facets and without a legend
+ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color = Neighbourhood)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(
+    title = "Assault Rates in University of Toronto's Surrounding Neighbourhoods (2014-2023)",
+    x = "Year",
+    y = "Assault Rate"
+  ) +
+  scale_x_continuous(breaks = seq(from = 2014, to = 2023, by = 1)) +
+  facet_wrap(~ Neighbourhood, scales = "free_x") +
+  theme(
+    legend.position = "none", # This line removes the legend
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)
+  )
 
 ```
 
