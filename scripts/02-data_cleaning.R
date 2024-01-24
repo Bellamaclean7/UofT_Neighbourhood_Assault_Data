@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: Cleans the raw data to prepare for data anlysis 
+# Purpose: Cleans the raw data to create outputs/data/cleaned_data.csv
 # Author: Bella MacLean
 # Date: 21 January 2024
 # Contact: bella.maclean@mail.utoronto.ca

@@ -27,7 +27,7 @@ resources <- list_package_resources("neighbourhood-crime-rates")
 datastore_resources <- filter(resources, tolower(format) %in% c('csv', 'geojson'))
 
 # load the first datastore resource as a sample
-data <- filter(datastore_resources, row_number()==1) %>% get_resource()
+data <- filter(datastore_resources, row_number()==1) |> get_resource()
 data
 
 # Write the data to a CSV file

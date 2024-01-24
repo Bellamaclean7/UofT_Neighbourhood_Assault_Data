@@ -46,7 +46,7 @@ simulated_data <- tibble(
 )
 
 # Summarize data for the two periods
-simulated_data <- simulated_data %>% 
+simulated_data <- simulated_data |> 
   mutate(
     Total_Assault_2014_2018 = ASSAULT_2014 + ASSAULT_2015 + ASSAULT_2016 + ASSAULT_2017 + ASSAULT_2018,
     Total_Assault_2019_2023 = ASSAULT_2019 + ASSAULT_2020 + ASSAULT_2021 + ASSAULT_2022 + ASSAULT_2023
