@@ -61,12 +61,17 @@ This dataset includes the Crime Data by Neighbourhood. Counts are available for 
 
 I conducted the first step of basic data cleaning to eliminate all counts and rates not applicable to this paper, so all I was left with was assault rates per neighbourhood for each year. I then refined the nieghbourhoods to include only those that encompass the University of Toronto and then its surrounding areas. The city of Toronto recognizes 158 unique neighbourhoods and of the 158, 13 have been included in the cleaned data.
 
-```{r}
-THIS IS FOR MY PHOTO
-```
-
 ###University of Toronto Neighbourhoods
-The 'Neighbourhood Crime Rates' dataset was filtered to focus solely on assault rates. This entailed discarding unrelated crime statistics and zeroing in on annual assault rate data per neighbourhood. The next crucial step was to narrow down the neighbourhoods to the four aforementioned areas central to the University of Toronto. These neighbourhoods are 4 of the 158 legitamate neighbourhoods recognized by the city of Toronto and can be seen in figure (PICTURE REF> HERE). This selective focus was vital to the study's goal of examining crime trends in university-adjacent areas (See Table \@ref(tbl-cleaned_uoft_neighbourhood_data)).
+The 'Neighbourhood Crime Rates' dataset was filtered to focus solely on assault rates. This entailed discarding unrelated crime statistics and zeroing in on annual assault rate data per neighbourhood. The next crucial step was to narrow down the neighbourhoods to the four aforementioned areas central to the University of Toronto. These neighbourhoods are 4 of the 158 legitimate neighbourhoods recognized by the city of Toronto and can be seen in (@ref(fig-uoft_neighbourhood_map)). This selective focus was vital to the study's goal of examining assault trends in university-adjacent areas (See Table \@ref(tbl-cleaned_uoft_neighbourhood_data)).
+
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-uoft_neighbourhood_map
+#| fig-cap: Map of UofT Neighbourhoods
+
+knitr::include_graphics("/cloud/project/inputs/sketches/uoft_neighbourhoods.png")
+```
 
 ```{r}
 #| message: false
@@ -83,7 +88,17 @@ head(cleaned_data, 5) |>
 ```
 
 ###University of Toronto Surrounding Areas
-The scope was then expanded to encompass neighbourhoods surrounding the primary four that make up the University of Toronto. This was done to understand the peripheral impact and the broader context of assault rates around the university. This secondary cleaning phase involved identifying and including adjacent neighbourhoods, thereby painting a more holistic picture of the university's neighbourhood safety landscape (See Table \@ref(tbl-cleaned_surrounding_neighbourhood_data)). These neighbourhoods make up 10 of the 158 legitimate neighbourhoods recognized by the city of Toronto and can be seen in figure (PICTURE REF> HERE).
+The scope was then expanded to encompass neighbourhoods surrounding the primary four that make up the University of Toronto. This was done to understand the peripheral impact and the broader context of assault rates around the university. This secondary cleaning phase involved identifying and including surrounding neighbourhoods, thereby painting a more holistic picture of the university's neighbourhood safety landscape (See Table \@ref(tbl-cleaned_surrounding_neighbourhood_data)). These neighbourhoods make up 9 of the 158 legitimate neighbourhoods recognized by the city of Toronto and can be seen in (@ref(fig-surrounding_neighbourhood_map)).
+
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-surrounding_neighbourhood_map
+#| fig-cap: Map of All 13 Neighbourhoods
+
+knitr::include_graphics("/cloud/project/inputs/sketches/surrounding_neighbourhoods.png")
+```
+
 
 ```{r}
 #| message: false
