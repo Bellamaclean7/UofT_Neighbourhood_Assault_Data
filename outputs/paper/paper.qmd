@@ -1,10 +1,10 @@
 ---
-title: "Assault Rate Trends Within and Around the University of Toronto: A Ten-Year Analysis"
+title: "How Safe is Campas Really? Assault Rate Trends Within and Around the University of Toronto: A Ten-Year Analysis"
 author: "Bella MacLean"
 thanks: "Code and data from this analysis are available at: https://github.com/Bellamaclean7/UofT_Neighbourhood_Assaults/tree/main"
 date: "today"
 date-format: "long" 
-abstract: "Using data from OpenDataToronto, this paper examines the trends in assault rates from 2014 to 2023 across 13 of Toronto’s 158 neighbourhoods recognized by the City of Toronto. These 13 neighbourhoods encompass and surround the University of Toronto. This papers seeks to determine a correlation between the university's presence and assault rates in its neighbouring areas, providing insights that may inform campus safety strategies and urban planning."
+abstract: "Using data from OpenDataToronto, this paper examines the trends in assault rates from 2014 to 2023 across 13 of Toronto’s 158 neighbourhoods recognized by the City of Toronto. These 13 neighbourhoods encompass and surround the University of Toronto. This papers seeks to determine a correlation between the university's presence and assault rates, providing insights that may inform campus safety strategies and urban planning."
 format: pdf
 toc: true
 number-sections: true
