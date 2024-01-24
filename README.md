@@ -1,4 +1,4 @@
-# How Safe is Campas Really? Assault Rate Trends Within and Around the University of Toronto: A Ten-Year Analysis
+# How Safe is Campus Really? Assault Rate Trends Within and Around the University of Toronto: A Ten-Year Analysis
 
 ## Overview
 
