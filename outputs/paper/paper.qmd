@@ -111,7 +111,7 @@ Over the past decade, University of Toronto's encompassing neighbourhoods have e
 #| label: fig-assaults_per_year_uoft
 #| fig-cap: Assault Rates per year in University of Toronto Neighbourhoods (2014-2023)
 
-long_data <- cleaned_data |>
+assault_data <- cleaned_data |>
   gather(key = "Year", value = "Assault_Rate", -Neighbourhood) |>
   mutate(Year = as.numeric(str_replace(Year, "ASSAULT_RATE_", "")))
 
@@ -127,7 +127,7 @@ ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color =
     y = "Assault Rate",
     color = "Neighbourhood"
   ) +
-  ylim(0, 5000) # Adjust these values based on your data's range
+  ylim(0, 3000) # Adjust these values based on your data's range
 
 ```
 
@@ -139,7 +139,7 @@ Assault rates in the neighbourhoods surrounding the University of Toronto Neighb
 #| label: fig-assaults_per_year_surounding_neighbourhoods
 #| fig-cap: Assault Rates in Surrounding Neighbourhoods
 
-long_data <- surrounding_neighbourhoods |>
+asst_data <- surrounding_neighbourhoods |>
   gather(key = "Year", value = "Assault_Rate", -Neighbourhood) |>
   mutate(Year = as.numeric(str_extract(Year, "\\d{4}")))
 
@@ -172,12 +172,12 @@ The data presents a counterintuitive narrative, revealing that the University of
 #| label: fig-assaults_per_year_per_neighbourhoods
 #| fig-cap: Assault Rates per year Across All Neighbourhoods (2014-2023)
 
-# Your data preparation code
+# My data prep
 long_data <- all_neighbourhoods |>
   gather(key = "Year", value = "Assault_Rate", -Neighbourhood) |>
   mutate(Year = as.numeric(str_extract(Year, "\\d{4}")))
 
-# Plot the graph with facets and without a legend
+# Plot the graph with facets and without a legend because legend was to big and messy and every facet is already labelled nicely
 ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color = Neighbourhood)) +
   geom_line() +
   geom_point() +
@@ -199,7 +199,7 @@ The "University" neighborhood is the neighbourhood predominantly occupied by the
 
 This divergence in trends between the "University" neighborhood and its neighboring areas suggests that the problem may be localized and thus could require targeted interventions by the university. These interventions could range from increasing campus security, bolstering support services for students, to implementing community engagement initiatives aimed at preventing assaults.
 
-There are potential measurment errors in the dataset used for this analysis. The dataset might not capture all incidents, as not all assaults are reported. Factors such as the victim's willingness to report, trust in campus authorities, and awareness of reporting channels can influence the data. Perhaps trust in campus authorities and awareness of the importance to report is strong on campus and therefore more assaults are reported in these neighbourhoods.
+There are potential measurement errors in the dataset used for this analysis. The dataset might not capture all incidents, as not all assaults are reported. Factors such as the victim's willingness to report, trust in campus authorities, and awareness of reporting channels can influence the data. Perhaps trust in campus authorities and awareness of the importance to report is strong on campus and therefore more assaults are reported in these neighbourhoods.
 
 There are several limitations to this analysis. Firstly, this analysis relies solely on a single metric (assault rates), which provides a narrow view of campus safety. Further, while assault rates does quantifies the incidents occurring, it does not account for the severity or nature of the assaults (does not break the data down by type of assault or whether it was a chargable offense). The term 'assault' encompasses a broad range of actions. Without information on the type of assault, it is difficult to provide insight into policy change, social action, and campus safety.
 
