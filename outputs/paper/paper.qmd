@@ -25,6 +25,8 @@ library(readr)
 library(dplyr)
 library(tidyr)
 library(stringr)
+library(kableExtra)
+library(bookdown)
 
 #read in cleaned data #
 uoft_neighbourhoods <- read.csv(here::here("outputs/data/cleaned_data.csv"))
@@ -39,7 +41,7 @@ all_neighbourhoods <- read.csv(here::here("outputs/data/discussion_data.csv"))
 show_col_types = FALSE
 ```
 
-## Introduction
+# Introduction
 
 Toronto is a city known for its vibrant culture and diverse neighborhoods and is home to one of Canada's most prestigious educational institutions – the University of Toronto. The University of Toronto encompasses and shapes the nearby areas of Bay-Cloverhill, The Annex, University district, and Kensington-Chinatown. These neighbourhoods are home to both an abundance of UofT academic and student buildings and a large student population. This paper examines assault rates from 2014 to 2023 in 13 of Toronto's 158 recignized neighbourhoods, using data from OpenDataToronto [@rOpenDataToronto], to understand the safety landscape of the University of Toronto in relation to assault rates over a ten-year period.
 
@@ -53,18 +55,18 @@ To examine the rate of assaults within and around the University of Toronto from
 
 \newpage
 
-## Data
-The data utilized throughout this paper was obtained through the City of Toronto’s OpenDataToronto Library [@rOpenDataToronto]. The data set used is entitled 'Neighbourhood Crime Rates' [@citeTorontoCrimeRates]. Data was collected and analyzed using the statistical programming software R [@r], with additional support from `tidyverse` [@rTidyverse], `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], `KableExtra` [@rKableExtra], `tibble` [@rTibble], `janitor` [@rJanitor], and `knitr` [@rknitr].
+# Data
+The data utilized throughout this paper was obtained through the City of Toronto’s OpenDataToronto Library [@rOpenDataToronto]. The data set used is entitled 'Neighbourhood Crime Rates' [@citeTorontoCrimeRates]. Data was collected and analyzed using the statistical programming software R [@citeR], with additional support from `tidyverse` [@citetidyverse], `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], `KableExtra` [@rKableExtra], `tibble` [@rTibble], `janitor` [@rJanitor], and `knitr` [@rknitr].
 
-###Source and Data Collection
+### Source and Data Collection
 This dataset includes the Crime Data by Neighbourhood. Counts are available for Assault, Auto Theft, Break and Enter, Robbery, Theft Over, Homicide and Shooting & Firearm Discharges. Data also includes the crime rate per 100,000 population calculated using the population estimates provided by Environics Analytics. Compared to assault count, assault rate provides a fairer comparison of the crime over time by taking into account the change in population in the region. The data was last refreshed on Jan 11, 2024 and is refreshed annually. 
 
 I conducted the first step of basic data cleaning to eliminate all counts and rates not applicable to this paper, so all I was left with was assault rates per neighbourhood for each year. I then refined the nieghbourhoods to include only those that encompass the University of Toronto and then its surrounding areas. The city of Toronto recognizes 158 unique neighbourhoods and of the 158, 13 have been included in the cleaned data.
 
-###University of Toronto Neighbourhoods
-The 'Neighbourhood Crime Rates' dataset was filtered to focus solely on assault rates. This entailed discarding unrelated crime statistics and zeroing in on annual assault rate data per neighbourhood. The next crucial step was to narrow down the neighbourhoods to the four aforementioned areas central to the University of Toronto. These neighbourhoods are 4 of the 158 legitimate neighbourhoods recognized by the city of Toronto and can be seen in (@ref(fig-uoft_neighbourhood_map)). This selective focus was vital to the study's goal of examining assault trends in university-adjacent areas (See Table \@ref(tbl-cleaned_uoft_neighbourhood_data)).
+### University of Toronto Neighbourhoods
+The 'Neighbourhood Crime Rates' dataset was filtered to focus solely on assault rates. This entailed discarding unrelated crime statistics and zeroing in on annual assault rate data per neighbourhood. The next crucial step was to narrow down the neighbourhoods to the four aforementioned areas central to the University of Toronto. These neighbourhoods are 4 of the 158 legitimate neighbourhoods recognized by the city of Toronto and can be seen in Figure \@ref(fig-uoft_neighbourhood_map). This selective focus was vital to the study's goal of examining assault trends in university-adjacent areas. See Table \@ref(tbl-cleaned_uoft_neighbourhood_data).
 
-```{r}
+```{r fig-uoft_neighbourhood_map, echo=FALSE, out.width='100%', fig.align='center'}
 #| message: false
 #| echo: false
 #| label: fig-uoft_neighbourhood_map
@@ -74,24 +76,26 @@ The 'Neighbourhood Crime Rates' dataset was filtered to focus solely on assault 
 knitr::include_graphics("/cloud/project/inputs/sketches/uoft_neighbourhoods.png")
 ```
 
-```{r}
+```{r tbl-cleaned_uoft_neighbourhood_data, table-fit, echo=FALSE, results='asis'}
 #| message: false
 #| echo: false
 #| label: tbl-cleaned_uoft_neighbourhood_data
 #| tbl-cap: Sample of Cleaned Data on Assault Rates in University of Toronto Neighbourhoods
 
-# Displaying the first 5 rows of the dataset
-head(cleaned_data, 5) |>
-  kable(
-    col.names = c("Neighbourhood", "Assault Rate 2014", "Assault Rate 2015", "Assault Rate 2016", "Assault Rate 2017", "Assault Rate 2018", "Assault Rate 2019", "Assault Rate 2020", "Assault Rate 2021", "Assault Rate 2022", "Assault Rate 2023"),
-    booktabs = TRUE
-  )
+# Select only the first four columns and the first 5 rows of the dataset
+selected_data_uoft <- head(uoft_neighbourhoods, 5)[, 1:4]
+
+# Displaying the table with only the first four columns
+kable(selected_data_uoft, 
+      booktabs = TRUE) |>
+  kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
+
 ```
 
-###University of Toronto Surrounding Areas
+### University of Toronto Surrounding Areas
 The scope was then expanded to encompass neighbourhoods surrounding the primary four that make up the University of Toronto. This was done to understand the peripheral impact and the broader context of assault rates around the university. This secondary cleaning phase involved identifying and including surrounding neighbourhoods, thereby painting a more holistic picture of the university's neighbourhood safety landscape (See Table \@ref(tbl-cleaned_surrounding_neighbourhood_data)). These neighbourhoods make up 9 of the 158 legitimate neighbourhoods recognized by the city of Toronto and can be seen in (@ref(fig-surrounding_neighbourhood_map)).
 
-```{r}
+```{r surr-map, echo=FALSE, out.width='100%', fig.align='center'}
 #| message: false
 #| echo: false
 #| label: fig-surrounding_neighbourhood_map
@@ -102,34 +106,39 @@ knitr::include_graphics("/cloud/project/inputs/sketches/surrounding_neighbourhoo
 ```
 
 
-```{r}
+```{r table-fit, echo=FALSE, results='asis'}
 #| message: false
 #| echo: false
 #| label: tbl-cleaned_surrounding_neighbourhood_data
 #| tbl-cap: Sample of Cleaned Data on Assault Rates in Surrounding Neighbourhoods
 
-# Displaying the first 5 rows of the dataset
-head(surrounding_neighbourhoods, 5) |>
-  kable(
-    col.names = c("Neighbourhood", "Assault Rate 2014", "Assault Rate 2015", "Assault Rate 2016", "Assault Rate 2017", "Assault Rate 2018", "Assault Rate 2019", "Assault Rate 2020", "Assault Rate 2021", "Assault Rate 2022", "Assault Rate 2023"),
-    booktabs = TRUE
-  )
+# Select only the first four columns and the first 10 rows of the dataset
+selected_data <- head(surrounding_neighbourhoods, 10)[, 1:4]
+
+# Displaying the table with only the first four columns
+kable(selected_data, 
+      format = "latex", booktabs = TRUE) |>
+  kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
+
 ```
 
 \newpage
 
-##Results
-###Assault Rates per University of Toronto Neighbourhood 
+# Results
+### Assault Rates per University of Toronto Neighbourhood 
 Over the past decade, University of Toronto's encompassing neighbourhoods have exhibited unique trends in assault rates. "Kensington-Chinatown" shows an erratic pattern, peaking around 2018 followed by a sharp decline in 2019 and a subsequent rise again. "The Annex" demonstrates a generally consistent, however, slight upward trend. Both "Bay-Cloverhill" and "University" show quite inconsistent patterns with several fluctuations over the ten year time span. What is most notable is Universities steady increase from 2020 on. The Annex also shows an increase from 2020 on, though not as steep as University. (\@ref(fig-assaults_per_year_uoft)) shows the assault rates per year for each University of Toronto neighbourhood.
-```{r}
+```{r fig-assaults_per_year_uoft, message=FALSE, echo=FALSE, fig.cap="Assault Rates per year in University of Toronto Neighbourhoods (2014-2023)"}
 #| message: false
 #| echo: false
 #| label: fig-assaults_per_year_uoft
 #| fig-cap: Assault Rates per year in University of Toronto Neighbourhoods (2014-2023)
 
-assault_data <- cleaned_data |>
+# Reading the data
+uoft_neighbourhoods <- read.csv(here::here("outputs/data/cleaned_data.csv"))
+
+long_data <- uoft_neighbourhoods |>
   gather(key = "Year", value = "Assault_Rate", -Neighbourhood) |>
-  mutate(Year = as.numeric(str_replace(Year, "ASSAULT_RATE_", "")))
+  mutate(Year = as.numeric(str_extract(Year, "\\d{4}")))
 
 # Plot the graph
 ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color = Neighbourhood)) +
@@ -137,30 +146,28 @@ ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color =
   geom_point() +
   theme_minimal() +
   labs(
-    title = "Assault Rates in University of Toronto 
-      Neighbourhoods (2014-2023)",
+    title = "   Assault Rates in University of Toronto's 
+Surrounding Neighbourhoods (2014-2023)",
     x = "Year",
     y = "Assault Rate",
     color = "Neighbourhood"
   ) +
-  ylim(0, 3000) # Adjust these values based on my data's range
+  ylim(0, 3000) +
+  scale_x_continuous(breaks = seq(from = 2014, to = 2023, by = 2)) # I added this line because it specifies the break points for the x-axis, which in this context represents the years. This line is telling ggplot2 to place axis ticks at every integer value between 2014 and 2023. I had to add this because the years were not showing up there was something wrong at the x-axis was coming up blank and therefore there was no datapoints in the graph
 
 ```
 
-###Assault Rates per Neighbourhood in the Surrounding Areas
+### Assault Rates per Neighbourhood in the Surrounding Areas
 Assault rates in the neighbourhoods surrounding the University of Toronto Neighbourhoods reveals some distinct patterns and fluctuations in the data.  Several neighbourhoods exhibit fairly stable trends with minor year-to-year changes including "Yonge-St.Clair", "Wychwood", "West Queen West, "Palmerston-Little Italy", "Case Loma" and "Trinity-Bellwoods". "Dovercourt Village" shows a slight upward trend over the decade. "Church-Wellesley" demonstrate quite a sporadic trend with several jumps and falls. From 2014-2020 "Wellington Place" shows a steep downward trend, rising from 2020-2022, however, then showing a steep decline again from 2022-2023. Several neighbourhoods exhibit quite low assault rates over the entire decade including "Yonge-St. Clair", "Casa Loma", "Palmerston-Little Italy", and "Wychwood". For a full picture of assault rates from 2014 to 2023 across various neighbourhoods surrounding the University of Toronto, please refer to (\@ref(fig-assaults_per_year_surounding_neighbourhoods)).
-```{r}
+``````{r fig-assaults_per_year_surounding_neighbourhoods, message=FALSE, warning=FALSE, echo=FALSE, fig.cap="Assault Rates in Surrounding Neighbourhoods"}
 #| message: false
 #| echo: false
 #| label: fig-assaults_per_year_surounding_neighbourhoods
 #| fig-cap: Assault Rates in Surrounding Neighbourhoods
 
-asst_data <- surrounding_neighbourhoods |>
+long_data <- surrounding_neighbourhoods |>
   gather(key = "Year", value = "Assault_Rate", -Neighbourhood) |>
   mutate(Year = as.numeric(str_extract(Year, "\\d{4}")))
-
-# Checking for NA values in Year because when I was building my graph orignally the output was a graph with nothing plotted on it even though everything else looked good the Year column is producing NA values
-sum(is.na(long_data$Year))
 
 # Plot the graph
 ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color = Neighbourhood)) +
@@ -180,7 +187,7 @@ Surrounding Neighbourhoods (2014-2023)",
 
 \newpage
 
-#Discussion
+# Discussion
 The data allows for a comparative analysis of assault rates across various neighborhoods in and around the University of Toronto from 2014 to 2023. By comparing the assault trends in the university's immediate vicinity with those of the surrounding neighborhoods, I aim to uncover underlying patterns, draw attention to areas of concern, and spark discussions around potential causative factors.
 
 The data presents a counterintuitive narrative, revealing that the University of Toronto, a Canadian fortress of education and innovation, experiences higher assault rates on average compared to its neighbouring communities. This finding challenges common perceptions of campus environments as "insulated" and safe. People often believe that a university is a safe bubble, away from the problems of the outside world, especially at a prestigious university focused on cutting edge learning and societal progress. However, that is not what the data portrays. (See\@ref(fig-assaults_per_year_per_neighbourhoods))
@@ -202,7 +209,7 @@ ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color =
   geom_point() +
   theme_minimal() +
   labs(
-    title = "Assault Rates in University of Toronto's Surrounding Neighbourhoods (2014-2023)",
+    title = "Assault Rates per year Across All Neighbourhoods From 2014-2023",
     x = "Year",
     y = "Assault Rate"
   ) +
@@ -214,7 +221,7 @@ ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color =
   )
 
 ```
-The "University" neighborhood is the neighbourhood predominantly occupied by the University of Toronto campus. The steady increase in assault rates in the "University" neighborhood since 2020, as shown (\@ref(fig-assaults_per_year_per_neighbourhoods)), is particularly concerning when compared to the assault rates in the surrounding neighborhoods. Unlike the surrounding areas, which display relatively stable or minimal fluctuating rates over the same period, the "University" exhibits a distinct and continuous rise. The next steepest rise in assault rates from 2020-2023 is the "Annex", which is another recognized University of Toronto Neighbourhood. These patterns within within the neighbourhoods "Annex" and "University" should raise concern and prompt conversation about assault rates on the University of Toronto campus.
+The "University" neighborhood is the neighbourhood predominantly occupied by the University of Toronto campus. The steady increase in assault rates in the "University" neighborhood since 2020, as shown (\@ref(fig-assaults_per_year_per_neighbourhoods)), is particularly concerning when compared to the assault rates in the surrounding neighborhoods. Unlike the surrounding areas, which display relatively stable or minimal fluctuating rates over the same period, the "University" exhibits a distinct and continuous rise. The next steepest rise in assault rates from 2020-2023 is the "Annex", which is another recognized University of Toronto Neighbourhood. These patterns within the neighbourhoods "Annex" and "University" should raise concern and prompt conversation about assault rates on the University of Toronto campus.
 
 This divergence in trends between the "University" neighborhood and its neighboring areas suggests that the problem may be localized and thus could require targeted interventions by the university. These interventions could range from increasing campus security, bolstering support services for students, to implementing community engagement initiatives aimed at preventing assaults.
 
