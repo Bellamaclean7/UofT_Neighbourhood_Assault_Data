@@ -65,10 +65,8 @@ I conducted the first step of basic data cleaning to eliminate all counts and ra
 THIS IS FOR MY PHOTO
 ```
 
-
 ###University of Toronto Neighbourhoods
 The 'Neighbourhood Crime Rates' dataset was filtered to focus solely on assault rates. This entailed discarding unrelated crime statistics and zeroing in on annual assault rate data per neighbourhood. The next crucial step was to narrow down the neighbourhoods to the four aforementioned areas central to the University of Toronto. These neighbourhoods are 4 of the 158 legitamate neighbourhoods recognized by the city of Toronto and can be seen in figure (PICTURE REF> HERE). This selective focus was vital to the study's goal of examining crime trends in university-adjacent areas (See Table \@ref(tbl-cleaned_uoft_neighbourhood_data)).
-
 
 ```{r}
 #| message: false
@@ -83,7 +81,6 @@ head(cleaned_data, 5) |>
     booktabs = TRUE
   )
 ```
-
 
 ###University of Toronto Surrounding Areas
 The scope was then expanded to encompass neighbourhoods surrounding the primary four that make up the University of Toronto. This was done to understand the peripheral impact and the broader context of assault rates around the university. This secondary cleaning phase involved identifying and including adjacent neighbourhoods, thereby painting a more holistic picture of the university's neighbourhood safety landscape (See Table \@ref(tbl-cleaned_surrounding_neighbourhood_data)). These neighbourhoods make up 10 of the 158 legitimate neighbourhoods recognized by the city of Toronto and can be seen in figure (PICTURE REF> HERE).
@@ -101,6 +98,8 @@ head(surrounding_neighbourhoods, 5) |>
     booktabs = TRUE
   )
 ```
+
+\newpage
 
 ##Results
 ###Assault Rates per University of Toronto Neighbourhood 
@@ -161,6 +160,9 @@ Surrounding Neighbourhoods (2014-2023)",
   scale_x_continuous(breaks = seq(from = 2014, to = 2023, by = 2)) # I added this line because it specifies the break points for the x-axis, which in this context represents the years. This line is telling ggplot2 to place axis ticks at every integer value between 2014 and 2023. I had to add this because the years were not showing up there was something wrong at the x-axis was coming up blank and therefore there was no datapoints in the graph
 
 ```
+
+\newpage
+
 #Discussion
 The data allows for a comparative analysis of assault rates across various neighborhoods in and around the University of Toronto from 2014 to 2023. By comparing the assault trends in the university's immediate vicinity with those of the surrounding neighborhoods, I aim to uncover underlying patterns, draw attention to areas of concern, and spark discussions around potential causative factors.
 
@@ -202,6 +204,8 @@ This divergence in trends between the "University" neighborhood and its neighbor
 There are potential measurement errors in the dataset used for this analysis. The dataset might not capture all incidents, as not all assaults are reported. Factors such as the victim's willingness to report, trust in campus authorities, and awareness of reporting channels can influence the data. Perhaps trust in campus authorities and awareness of the importance to report is strong on campus and therefore more assaults are reported in these neighbourhoods.
 
 There are several limitations to this analysis. Firstly, this analysis relies solely on a single metric (assault rates), which provides a narrow view of campus safety. Further, while assault rates does quantifies the incidents occurring, it does not account for the severity or nature of the assaults (does not break the data down by type of assault or whether it was a chargable offense). The term 'assault' encompasses a broad range of actions. Without information on the type of assault, it is difficult to provide insight into policy change, social action, and campus safety.
+
+\newpage
 
 # References
 
