@@ -35,7 +35,7 @@ assault_rate_data <- raw_data |>
 
 # Filter rows for specific neighborhoods
 all_neighbourhoods <- assault_rate_data |>
-  filter(Neighbourhood %in% c("Kensington-Chinatown", "University", "Bay-Cloverhill", "Annex", "Dovercourt Village",  "Church-Wellesley", "Palmerston-Little Italy", "Trinity-Bellwoods", "West Queen West", "Wellington Place", "Yonge-Bay Corridor", "Wychwood", "Casa Loma", "Yonge-St.Clair"))
+  filter(Neighbourhood %in% c("University", "Bay-Cloverhill", "Annex", "Dovercourt Village",  "Church-Wellesley", "Palmerston-Little Italy", "Trinity-Bellwoods", "West Queen West", "Wellington Place", "Yonge-Bay Corridor", "Wychwood", "Casa Loma", "Yonge-St.Clair"))
 
 # View the first few rows of the dataset with renamed variables
 print(all_neighbourhoods)
