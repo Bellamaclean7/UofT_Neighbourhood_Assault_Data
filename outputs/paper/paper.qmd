@@ -70,6 +70,7 @@ The 'Neighbourhood Crime Rates' dataset was filtered to focus solely on assault 
 #| label: fig-uoft_neighbourhood_map
 #| fig-cap: Map of UofT Neighbourhoods
 
+# Adding my map of UofT neighbourhoods
 knitr::include_graphics("/cloud/project/inputs/sketches/uoft_neighbourhoods.png")
 ```
 
@@ -96,6 +97,7 @@ The scope was then expanded to encompass neighbourhoods surrounding the primary 
 #| label: fig-surrounding_neighbourhood_map
 #| fig-cap: Map of All 13 Neighbourhoods
 
+# Adding my map of surrounding neighbourhoods
 knitr::include_graphics("/cloud/project/inputs/sketches/surrounding_neighbourhoods.png")
 ```
 
@@ -141,7 +143,7 @@ ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color =
     y = "Assault Rate",
     color = "Neighbourhood"
   ) +
-  ylim(0, 3000) # Adjust these values based on your data's range
+  ylim(0, 3000) # Adjust these values based on my data's range
 
 ```
 
@@ -219,6 +221,9 @@ This divergence in trends between the "University" neighborhood and its neighbor
 There are potential measurement errors in the dataset used for this analysis. The dataset might not capture all incidents, as not all assaults are reported. Factors such as the victim's willingness to report, trust in campus authorities, and awareness of reporting channels can influence the data. Perhaps trust in campus authorities and awareness of the importance to report is strong on campus and therefore more assaults are reported in these neighbourhoods.
 
 There are several limitations to this analysis. Firstly, this analysis relies solely on a single metric (assault rates), which provides a narrow view of campus safety. Further, while assault rates does quantifies the incidents occurring, it does not account for the severity or nature of the assaults (does not break the data down by type of assault or whether it was a chargable offense). The term 'assault' encompasses a broad range of actions. Without information on the type of assault, it is difficult to provide insight into policy change, social action, and campus safety.
+
+# Conclusion
+This analysis of assault rates from 2014 to 2023 in and around the University of Toronto offers a unique view of campus safety in raletion to assault rates and its surrounding environment. The significant findings challenge the commonly held belief that university campuses, especially prestigious ones like the University of Toronto, are insulated and often safer then surrounding areas. The data shows a notable increase in assault rates in the "University" and "Annex" neighborhoods, areas predominantly associated with the University of Toronto. This upward trend, particularly since 2020, emphasizes the necessity for a reassessment of the current safety measures and policies in place on campus. The contrasting stability or minor fluctuations in assault rates in the surrounding neighborhoods further accentuates the specific challenges faced within the university's immediate vicinity. This analysis contributes to the dialogue around campus safety. The findings suggest that the University of Toronto might benefit from increased targeted interventions in relation to assault prevention and protection. 
 
 \newpage
 
