@@ -1,5 +1,5 @@
 ---
-title: "How Safe is Campas Really? Assault Rate Trends Within and Around the University of Toronto: A Ten-Year Analysis"
+title: "How Safe is Campus Really? Assault Rate Trends Within and Around the University of Toronto: A Ten-Year Analysis"
 author: "Bella MacLean"
 thanks: "Code and data from this analysis are available at: https://github.com/Bellamaclean7/UofT_Neighbourhood_Assaults/tree/main"
 date: "today"

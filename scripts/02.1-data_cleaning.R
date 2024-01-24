@@ -31,7 +31,20 @@ assault_rate_data <- raw_data |>
          `Assault Rate 2020` = ASSAULT_RATE_2020,
          `Assault Rate 2021` = ASSAULT_RATE_2021,
          `Assault Rate 2022` = ASSAULT_RATE_2022,
-         `Assault Rate 2023` = ASSAULT_RATE_2023)
+         `Assault Rate 2023` = ASSAULT_RATE_2023) |>
+  mutate(
+    `Assault Rate 2014` = round(`Assault Rate 2014`, 2),
+    `Assault Rate 2015` = round(`Assault Rate 2015`, 2),
+    `Assault Rate 2016` = round(`Assault Rate 2016`, 2),
+    `Assault Rate 2017` = round(`Assault Rate 2017`, 2),
+    `Assault Rate 2018` = round(`Assault Rate 2018`, 2),
+    `Assault Rate 2019` = round(`Assault Rate 2019`, 2),
+    `Assault Rate 2020` = round(`Assault Rate 2020`, 2),
+    `Assault Rate 2021` = round(`Assault Rate 2021`, 2),
+    `Assault Rate 2022` = round(`Assault Rate 2022`, 2),
+    `Assault Rate 2023` = round(`Assault Rate 2023`, 2)
+  )
+
 
 # Filter rows for specific neighborhoods
 surrounding_neighbourhoods <- assault_rate_data |>
