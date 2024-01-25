@@ -38,5 +38,5 @@ sum(is.na(all_neighbourhoods))
 
 # Checking to ensure the dataframe holds only the unique neighbourhoods I want
 unique(uoft_neighbourhoods$Neighbourhood)
-unique(surrounding_neighbourhoods)
-unique(all_neighbourhoods)
+unique(surrounding_neighbourhoods$Neighbourhood)
+unique(all_neighbourhoods$Neighbourhood)
