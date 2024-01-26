@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: Simulate the Neighbourhood Crime Rates data set but refining the 158 neighbourhoods  
+# Purpose: Simulate the Neighbourhood Crime Rates data set by refining the 158 neighbourhoods  
 # Author: Bella MacLean
 # Date: Saturday January 20, 2024
 # Contact: bella.maclean@mail.utoronto.ca

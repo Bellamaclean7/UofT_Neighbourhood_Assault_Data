@@ -14,7 +14,7 @@ library(readr)
 raw_data <- read_csv("inputs/data/raw_data.csv")
 View(raw_data)
 
-# Select the specified columns and rename AREA_NAME
+# Select the specified columns and rename AREA_NAME and round each assault rate to 2 decimal places
 assault_rate_data <- raw_data |>
   select(AREA_NAME, 
          ASSAULT_RATE_2014, ASSAULT_RATE_2015, ASSAULT_RATE_2016, 
