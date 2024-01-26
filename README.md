@@ -1,8 +1,8 @@
-# Assault Rate Trends Within and Around the University of Toronto: A Ten-Year Analysis
+# Assault Crime at the University of Toronto: Higher Than in Surrounding Neighbourhoods?: Exploring a Decade of Assault Rate Trends in and Around the University
 
 ## Overview
 
-This paper examines the trends in assault rates from 2014 to 2023 across 13 of Toronto’s 158 neighbourhoods recognized by the City of Toronto. These 13 neighbourhoods encompass and surround the University of Toronto.
+Using data from OpenDataToronto, this paper examines the trends in assault rates from 2014 to 2023 across 13 of Toronto’s 158 neighbourhoods recognized by the City of Toronto. These 13 neighbourhoods encompass and surround the University of Toronto. This paper reveals a correlation between the university's presence and higher assault rates, providing insights that may inform campus safety strategies and policy.
 
 ## File Structure
 
