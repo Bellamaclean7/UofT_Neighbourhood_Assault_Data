@@ -53,7 +53,7 @@ Although the University of Toronto emphasizes its ongoing commitment to student 
 
 The definition of assault in Canada under Sections 265 and 266 of the Criminal Code is any physical contact without consent or any action that causes someone to believe that such contact is imminent. This can range from an actual application of force to threatening gestures that make someone fear they might be harmed. This applies to all forms of assault, including sexual assault, sexual assault with a weapon, threats to a third party or causing bodily harm and aggravated sexual assault [@citeCriminalCodeSection265].
 
-
+### Analysis Structure
 To examine the rate of assaults within and around the University of Toronto from 2014-2023, this paper has been organized into the following sections: Data, Results, Discussion, and Conclusion. In the Data section, I discuss the nature of the dataset obtained through the City of Toronto’s OpenDataToronto Library [@rOpenDataToronto] and the steps I took to clean and analyze the data. The Results section highlights trends found during the analysis process, while the Discussion section further evaluates the trends and presents insight. Lastly, the Conclusion section summarizes the main findings from this paper.
 
 # Data
