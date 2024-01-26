@@ -1,5 +1,6 @@
 ---
-title: "Assault Rate Trends Within and Around the University of Toronto: A Ten-Year Analysis"
+title: "Assault Crime at the University of Toronto: Higher Than in Surrounding Neighbourhoods?"
+subtitle: "Exploring a Decade of Assault Rate Trends in and Around the University"
 author: "Bella MacLean"
 thanks: "Code and data from this analysis are available at: https://github.com/Bellamaclean7/UofT_Neighbourhood_Assault_Data"
 date: "today"
