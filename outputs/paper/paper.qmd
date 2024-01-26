@@ -1,5 +1,5 @@
 ---
-title: "How Safe is Campus Really? Assault Rate Trends Within and Around the University of Toronto: A Ten-Year Analysis"
+title: "Assault Rate Trends Within and Around the University of Toronto: A Ten-Year Analysis"
 author: "Bella MacLean"
 thanks: "Code and data from this analysis are available at: https://github.com/Bellamaclean7/UofT_Neighbourhood_Assault_Data"
 date: "today"
@@ -40,31 +40,32 @@ show_col_types = FALSE
 all_neighbourhoods <- read.csv(here::here("outputs/data/discussion_data.csv"))
 show_col_types = FALSE
 ```
+\newpage
 
 # Introduction
 
 Toronto is a city known for its vibrant culture and diverse neighborhoods and is home to one of Canada's most prestigious educational institutions – the University of Toronto. The University of Toronto encompasses and shapes the nearby areas of Bay-Cloverhill, The Annex, University district, and Kensington-Chinatown. These neighbourhoods are home to both an abundance of UofT academic and student buildings and a large student population. This paper examines assault rates from 2014 to 2023 in 13 of Toronto's 158 recignized neighbourhoods, using data from OpenDataToronto [@rOpenDataToronto], to understand the safety landscape of the University of Toronto in relation to assault rates over a ten-year period.
 
-In February of 2020, the University of Toronto released data from a two-year-old province-wide, online student survey on sexual harassment and sexual assault, saying it will paint a more detailed picture of the issues and help improve supports on campus [@citeUofTSexualViolenceData]. Originally collected as part of the 2018 Student Voices on Sexual Violence Survey, the data was then released by the Ontario government to all universities and colleges province wide. Over 117,000 students from various institutions, including over 20,000 from U of T, participated in the survey. The overview of the survey released indicated that 63 per cent of students province-wide, and 59 per cent of students at U of T, reported at least one incident of sexual harassment since the beginning of the 2017-2018 academic year [@citeUofTSexualViolenceData].
+In February of 2020, the University of Toronto released data from a two-year-old province-wide, online student survey on sexual harassment and sexual assault, saying it will paint a more detailed picture of the issues and help improve supports on campus [@citeUofTSexualViolenceData]. Originally collected as part of the 2018 Student Voices on Sexual Violence Survey, the data was then released by the Ontario government to all universities and colleges province wide. Over 117,000 students from various institutions, including over 20,000 from U of T, participated in the survey. The overview of the survey released indicated that 63 per cent of students province-wide, and 59 per cent of students at U of T, reported at least one incident of sexual assault since the beginning of the 2017-2018 academic year [@citeUofTSexualViolenceData].
 
 Although the University of Toronto emphasizes its ongoing commitment to student safety, the improvement of services, and raising awareness of assault and violence, there is very little data and literature that exists on the matter. This paper aids to contribute to the investigation of assault violence in and around the University of Toronto. 
+
+During the literature review phase of this analysis, it became evident that the majority of available data and academic discourse concerning assault crime on campus predominantly focused on sexual assault and harassment. This imbalance in data representation potentially masks a full understanding of the prevalence and nature of other types of assault that may be taking place. This lack of data on various forms of assault could hinder the universities ability to grasp the complete spectrum of safety issues faced by those on campus.
 
 The definition of assault in Canada under Sections 265 and 266 of the Criminal Code is any physical contact without consent or any action that causes someone to believe that such contact is imminent. This can range from an actual application of force to threatening gestures that make someone fear they might be harmed. This applies to all forms of assault, including sexual assault, sexual assault with a weapon, threats to a third party or causing bodily harm and aggravated sexual assault [@citeCriminalCodeSection265].
 
 To examine the rate of assaults within and around the University of Toronto from 2014-2023, this paper has been organized into the following sections: Data, Results, Discussion, and Conclusion. In the Data section, I discuss the nature of the dataset obtained through the City of Toronto’s OpenDataToronto Library [@rOpenDataToronto] and the steps I took to clean and analyze the data. The Results section highlights trends found during the analysis process, while the Discussion section further evaluates the trends and presents insight. Lastly, the Conclusion section summarizes the main findings from this paper.
 
-\newpage
-
 # Data
-The data utilized throughout this paper was obtained through the City of Toronto’s OpenDataToronto Library [@rOpenDataToronto]. The data set used is entitled 'Neighbourhood Crime Rates' [@citeTorontoCrimeRates]. Data was collected and analyzed using the statistical programming software R [@citeR], with additional support from `tidyverse` [@citetidyverse], `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], `KableExtra` [@rKableExtra], `tibble` [@rTibble], `janitor` [@rJanitor], and `knitr` [@rknitr].
+The data utilized throughout this paper was obtained through the City of Toronto’s OpenDataToronto Library [@rOpenDataToronto]. The dataset used is entitled 'Neighbourhood Crime Rates' [@citeTorontoCrimeRates]. Data was collected and analyzed using the statistical programming software R [@citeR], with additional support from `tidyverse` [@citetidyverse], `ggplot2` [@rGgplot2], `dplyr` [@rDplyr], `readr` [@rReadr], `KableExtra` [@rKableExtra], `tibble` [@rTibble], `janitor` [@rJanitor], and `knitr` [@rknitr].
 
 ### Source and Data Collection
 This dataset includes the Crime Data by Neighbourhood. Counts are available for Assault, Auto Theft, Break and Enter, Robbery, Theft Over, Homicide and Shooting & Firearm Discharges. Data also includes the crime rate per 100,000 population calculated using the population estimates provided by Environics Analytics. Compared to assault count, assault rate provides a fairer comparison of the crime over time by taking into account the change in population in the region. The data was last refreshed on Jan 11, 2024 and is refreshed annually. 
 
-I conducted the first step of basic data cleaning to eliminate all counts and rates not applicable to this paper, so all I was left with was assault rates per neighbourhood for each year. I then refined the nieghbourhoods to include only those that encompass the University of Toronto and then its surrounding areas. The city of Toronto recognizes 158 unique neighbourhoods and of the 158, 13 have been included in the cleaned data.
+I conducted the first step of basic data cleaning to eliminate all counts and rates not applicable to this paper, so all I was left with was assault rates per neighbourhood for each year. I then refined the nieghbourhoods to include only those that encompass the University of Toronto and then its surrounding areas. The city of Toronto recognizes 158 unique neighbourhoods and of the 158, 13 have been included in the cleaned data. University of Toronto neighbourhoods include: "Bay-Cloverhill", "Annex", "University", and "Kensington-Chinatown". Surrounding neighbourhoods include: "Dovercourt Village", "Church-Wellesley", "Wellington Place", "West Queen West", "Yonge-St. Clair", "Casa Loma", "Wychwood", "Palmerston-Little Italy", and "Trinity-Bellwoods".
 
 ### University of Toronto Neighbourhoods
-The 'Neighbourhood Crime Rates' dataset was filtered to focus solely on assault rates. This entailed discarding unrelated crime statistics and zeroing in on annual assault rate data per neighbourhood. The next crucial step was to narrow down the neighbourhoods to the four aforementioned areas central to the University of Toronto. These neighbourhoods are 4 of the 158 legitimate neighbourhoods recognized by the city of Toronto and can be seen in @fig-uoft_neighbourhood_map. This selective focus was vital to the study's goal of examining assault trends in university-adjacent areas. See @tbl-cleaned_uoft_neighbourhood_data.
+The 'Neighbourhood Crime Rates' dataset was filtered to focus solely on assault rates. This entailed discarding unrelated crime statistics and zeroing in on annual assault rate data per neighbourhood. The next crucial step was to narrow down the neighbourhoods to the 4 aforementioned areas central to the University of Toronto. These neighbourhoods are 4 of the 158 legitimate neighbourhoods recognized by the city of Toronto and can be seen in @fig-uoft_neighbourhood_map. This selective focus was vital to the study's goal of examining assault trends in university-adjacent areas. See @tbl-cleaned_uoft_neighbourhood_data.
 
 ```{r fig-uoft_neighbourhood_map, echo=FALSE, out.width='100%', fig.align='center'}
 #| warning: false
@@ -93,7 +94,7 @@ kable(selected_data_uoft,
 ```
 
 ### University of Toronto Surrounding Areas
-The scope was then expanded to encompass neighbourhoods surrounding the primary four that make up the University of Toronto. This was done to understand the peripheral impact and the broader context of assault rates around the university. This secondary cleaning phase involved identifying and including surrounding neighbourhoods, thereby painting a more holistic picture of the university's neighbourhood safety landscape (See @tbl-cleaned_surrounding_neighbourhood_data). These neighbourhoods make up 9 of the 158 legitimate neighbourhoods recognized by the city of Toronto and can be seen in @fig-surrounding_neighbourhood_map.
+The scope was then expanded to encompass neighbourhoods surrounding the primary 4 that make up the University of Toronto. This was done to understand the peripheral impact and the broader context of assault rates in and around the university. This secondary cleaning phase involved identifying and including surrounding neighbourhoods, thereby painting a more holistic picture of the university's neighbourhood safety landscape (See @tbl-cleaned_surrounding_neighbourhood_data). These neighbourhoods make up 9 of the 158 legitimate neighbourhoods recognized by the city of Toronto and can be seen in @fig-surrounding_neighbourhood_map.
 
 ```{r fig-surrounding_neighbourhood_map, echo=FALSE, out.width='100%', fig.align='center'}
 #| message: false
@@ -122,8 +123,6 @@ kable(selected_data,
 
 ```
 
-\newpage
-
 # Results
 ### Assault Rates per University of Toronto Neighbourhood 
 Over the past decade, University of Toronto's encompassing neighbourhoods have exhibited unique trends in assault rates. "Kensington-Chinatown" shows an erratic pattern, peaking around 2018 followed by a sharp decline in 2019 and a subsequent rise again. "The Annex" demonstrates a generally consistent, however, slight upward trend. Both "Bay-Cloverhill" and "University" show quite inconsistent patterns with several fluctuations over the ten year time span. What is most notable is Universities steady increase from 2020 on. The Annex also shows an increase from 2020 on, though not as steep as University. @fig-assaults_per_year_uoft shows the assault rates per year for each University of Toronto neighbourhood.
@@ -131,16 +130,17 @@ Over the past decade, University of Toronto's encompassing neighbourhoods have e
 #| message: false
 #| echo: false
 #| label: fig-assaults_per_year_uoft
-#| fig-cap: Assault Rates per year in University of Toronto Neighbourhoods (2014-2023)
+#| fig-cap: Assault Rates in University of Toronto Neighbourhoods (2014-2023)
 
 # Reading the data
 uoft_neighbourhoods <- read.csv(here::here("outputs/data/cleaned_data.csv"))
 
+# This first part of the code takes "assault_rate_[year]" and consolidates them into two columns: one for the year (key = "Year") and one for the corresponding assault rates (value = "Assault_Rate") - I did this to improve data visualization using line graphs
 long_data <- uoft_neighbourhoods |>
   gather(key = "Year", value = "Assault_Rate", -Neighbourhood) |>
   mutate(Year = as.numeric(str_extract(Year, "\\d{4}")))
 
-# Plot the graph
+# Plotting the graph
 ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color = Neighbourhood)) +
   geom_line() +
   geom_point() +
@@ -158,18 +158,19 @@ Surrounding Neighbourhoods (2014-2023)",
 ```
 
 ### Assault Rates per Neighbourhood in the Surrounding Areas
-Assault rates in the neighbourhoods surrounding the University of Toronto Neighbourhoods reveals some distinct patterns and fluctuations in the data.  Several neighbourhoods exhibit fairly stable trends with minor year-to-year changes including "Yonge-St.Clair", "Wychwood", "West Queen West, "Palmerston-Little Italy", "Case Loma" and "Trinity-Bellwoods". "Dovercourt Village" shows a slight upward trend over the decade. "Church-Wellesley" demonstrate quite a sporadic trend with several jumps and falls. From 2014-2020 "Wellington Place" shows a steep downward trend, rising from 2020-2022, however, then showing a steep decline again from 2022-2023. Several neighbourhoods exhibit quite low assault rates over the entire decade including "Yonge-St. Clair", "Casa Loma", "Palmerston-Little Italy", and "Wychwood". For a full picture of assault rates from 2014 to 2023 across various neighbourhoods surrounding the University of Toronto, please refer to @fig-assaults_per_year_surounding_neighbourhoods.
+Assault rates in neighbourhoods surrounding the University of Toronto reveals some distinct patterns and fluctuations.  Several neighbourhoods exhibit fairly stable trends with minor year-to-year changes including "Yonge-St.Clair", "Wychwood", "West Queen West, "Palmerston-Little Italy", "Case Loma" and "Trinity-Bellwoods". "Dovercourt Village" shows a slight upward trend over the decade. "Church-Wellesley" demonstrate quite a sporadic trend with several jumps and falls. From 2014-2020 "Wellington Place" shows a steep downward trend, rising from 2020-2022, however, then again showing a steep decline. Several neighbourhoods exhibit quite low assault rates over the entire decade including "Yonge-St. Clair", "Casa Loma", "Palmerston-Little Italy", and "Wychwood". For a full picture of assault rates from 2014 to 2023 across various neighbourhoods surrounding the University of Toronto, please refer to @fig-assaults_per_year_surounding_neighbourhoods.
 ``````{r fig-assaults_per_year_surounding_neighbourhoods, message=FALSE, warning=FALSE, echo=FALSE, fig.cap="Assault Rates in Surrounding Neighbourhoods"}
 #| message: false
 #| echo: false
 #| label: fig-assaults_per_year_surounding_neighbourhoods
-#| fig-cap: Assault Rates in Surrounding Neighbourhoods
+#| fig-cap: Assault Rates in Surrounding Neighbourhoods (2014-2023)
 
+# This first part of the code takes "assault_rate_[year]" and consolidates them into two columns: one for the year (key = "Year") and one for the corresponding assault rates (value = "Assault_Rate") - I did this to improve data visualization using line graphs
 long_data <- surrounding_neighbourhoods |>
   gather(key = "Year", value = "Assault_Rate", -Neighbourhood) |>
   mutate(Year = as.numeric(str_extract(Year, "\\d{4}")))
 
-# Plot the graph
+# Plotting the graph
 ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color = Neighbourhood)) +
   geom_line() +
   geom_point() +
@@ -185,10 +186,8 @@ Surrounding Neighbourhoods (2014-2023)",
 
 ```
 
-\newpage
-
 # Discussion
-The data allows for a comparative analysis of assault rates across various neighborhoods in and around the University of Toronto from 2014 to 2023. By comparing the assault trends in the university's immediate vicinity with those of the surrounding neighborhoods, I aim to uncover underlying patterns, draw attention to areas of concern, and spark discussions around potential causative factors.
+The data allows for a comparative analysis of assault rates across various neighborhoods in and around the University of Toronto from 2014 to 2023. By comparing the assault trends in the university's immediate vicinity with those of the surrounding neighborhoods, I aim to uncover underlying patterns, draw attention to areas of concern, and spark discussions around potential preventative measures.
 
 The data presents a counterintuitive narrative, revealing that the University of Toronto, a Canadian fortress of education and innovation, experiences higher assault rates on average compared to its neighbouring communities. This finding challenges common perceptions of campus environments as "insulated" and safe. People often believe that a university is a safe bubble, away from the problems of the outside world, especially at a prestigious university focused on cutting edge learning and societal progress. However, that is not what the data portrays (See @fig-assaults_per_year_per_neighbourhoods).
 
@@ -196,14 +195,14 @@ The data presents a counterintuitive narrative, revealing that the University of
 #| message: false
 #| echo: false
 #| label: fig-assaults_per_year_per_neighbourhoods
-#| fig-cap: Assault Rates per year Across All Neighbourhoods (2014-2023)
+#| fig-cap: Assault Rates Across All Neighbourhoods (2014-2023)
 
 # My data prep
 long_data <- all_neighbourhoods |>
   gather(key = "Year", value = "Assault_Rate", -Neighbourhood) |>
   mutate(Year = as.numeric(str_extract(Year, "\\d{4}")))
 
-# Plot the graph with facets and without a legend because legend was to big and messy and every facet is already labelled nicely
+# Plot the graph with facets and without a legend because legend was to big and messy and every subplot is already labelled nicely with neighbourhood name
 ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color = Neighbourhood)) +
   geom_line() +
   geom_point() +
@@ -212,7 +211,7 @@ ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color =
     title = "Assault Rates per year Across All Neighbourhoods From 2014-2023",
     x = "Year",
     y = "Assault Rate"
-  ) +
+  ) + # this next part formats the x-axis scale to include every year
   scale_x_continuous(breaks = seq(from = 2014, to = 2023, by = 1)) +
   facet_wrap(~ Neighbourhood, scales = "free_x") +
   theme(
@@ -224,13 +223,18 @@ ggplot(long_data, aes(x = Year, y = Assault_Rate, group = Neighbourhood, color =
   )
 
 ```
-The "University" neighborhood is the neighbourhood predominantly occupied by the University of Toronto campus. The steady increase in assault rates in the "University" neighborhood since 2020, as shown in @fig-assaults_per_year_per_neighbourhoods, is particularly concerning when compared to the assault rates in the surrounding neighborhoods. Unlike the surrounding areas, which display relatively stable or minimal fluctuating rates over the same period, the "University" exhibits a distinct and continuous rise. The next steepest rise in assault rates from 2020-2023 is the "Annex", which is another recognized University of Toronto Neighbourhood. These patterns within the neighbourhoods "Annex" and "University" should raise concern and prompt conversation about assault rates on the University of Toronto campus.
+"University" is the neighbourhood predominantly occupied by the University of Toronto campus. The steady increase in assault rates in the "University" neighborhood since 2020, as shown in @fig-assaults_per_year_per_neighbourhoods, is particularly concerning when compared to the assault rates in the surrounding neighborhoods. Unlike the surrounding areas, which display relatively stable or minimal fluctuating rates over the same period, "University" exhibits a distinct and continuous rise. The next steepest rise in assault rates from 2020-2023 is "Annex", which is another recognized University of Toronto Neighbourhood. Additionally, assault rates in "Kensington-Chinatown" are most consistent and highest overall across the entirety of the decade then all surrounding neighnourhoods. These patterns within the University of Toronto neighbourhoods should raise concern and prompt conversation about assault rates on the University of Toronto campus.
 
-This divergence in trends between the "University" neighborhood and its neighboring areas suggests that the problem may be localized and thus could require targeted interventions by the university. These interventions could range from increasing campus security, bolstering support services for students, to implementing community engagement initiatives aimed at preventing assaults.
+This divergence in trends between the "University" neighborhood and its neighboring areas suggests that the problem may be localized and thus require targeted interventions by the university. These interventions could range from increasing campus security, bolstering support services for students, and implementing community engagement initiatives aimed at preventing assaults of all types.
 
-There are potential measurement errors in the dataset used for this analysis. The dataset might not capture all incidents, as not all assaults are reported. Factors such as the victim's willingness to report, trust in campus authorities, and awareness of reporting channels can influence the data. Perhaps trust in campus authorities and awareness of the importance to report is strong on campus and therefore more assaults are reported in these neighbourhoods.
+The 2022 Statistical Overview of Reportable Incidents at University of Toronto - St. George, released by the University of Toronto Campus Safety Special Constable Service showed that general assault counts are 3 times higher than sexual assault counts [@citeUofTCampusSafetyReport]. However, emphasis is still put on sexual assault prevention almost exclusively in all popular literature. A major flaw to this important yearly circulated document is that the report does not discuss or capture campus boundaries in relation to Special Constable Services.
 
-There are several limitations to this analysis. Firstly, this analysis relies solely on a single metric (assault rates), which provides a narrow view of campus safety. Further, while assault rates does quantifies the incidents occurring, it does not account for the severity or nature of the assaults (does not break the data down by type of assault or whether it was a chargable offense). The term 'assault' encompasses a broad range of actions. Without information on the type of assault, it is difficult to provide insight into policy change, social action, and campus safety.
+Given that the data indicates higher assault rates in the University of Toronto neighbourhoods compared to surrounding areas, and the predominance of discourse strictly referencing sexual assault in the literature, it's imperative that the university works expose data and spread awareness concerning all types of assault present within campus neighbourhoods. It is also crucial that the University of Toronto feel a sense of responsibility to geographical pockets immediately surrounding the university with high off-campus student populations. Future research should aim to record assault data by type, severity, and location, providing the most comprehensive understanding of the issue possible.
+
+### Limitations in the Data
+There are potential measurement errors in the dataset used for this analysis. The dataset might not capture all incidents, as not all assaults are reported. Factors such as the victim's willingness to report, trust in authorities and institutions, and awareness of reporting channels can influence the data. Perhaps trust in campus authorities and awareness of the importance to report is strong on campus and therefore more assaults are reported in these neighbourhoods.
+
+There are several limitations to this analysis. Firstly, this analysis relies solely on a single metric (assault rates), which provides a narrow view of campus safety. Further, while assault rates does quantify the incidents occurring, it does not account for the severity or nature of the assaults (does not break the data down by type of assault or whether it was a chargeable offense). The term 'assault' encompasses a broad range of actions. Without information on the type of assault, it is difficult to provide targeted insight into policy change, social action, and campus safety.
 
 # Conclusion
 This analysis of assault rates from 2014 to 2023 in and around the University of Toronto offers a unique view of campus safety in raletion to assault rates and its surrounding environment. The significant findings challenge the commonly held belief that university campuses, especially prestigious ones like the University of Toronto, are insulated and often safer then surrounding areas. The data shows a notable increase in assault rates in the "University" and "Annex" neighborhoods, areas predominantly associated with the University of Toronto. This upward trend, particularly since 2020, emphasizes the necessity for a reassessment of the current safety measures and policies in place on campus. The contrasting stability or minor fluctuations in assault rates in the surrounding neighborhoods further accentuates the specific challenges faced within the university's immediate vicinity. This analysis contributes to the dialogue around campus safety. The findings suggest that the University of Toronto might benefit from increased targeted interventions in relation to assault prevention and protection. 
