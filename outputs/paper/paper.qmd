@@ -5,7 +5,7 @@ author: "Bella MacLean"
 thanks: "Code and data from this analysis are available at: https://github.com/Bellamaclean7/UofT_Neighbourhood_Assault_Data"
 date: "today"
 date-format: "long" 
-abstract: "Using data from OpenDataToronto, this paper examines the trends in assault rates from 2014 to 2023 across 13 of Toronto’s 158 neighbourhoods recognized by the City of Toronto. These 13 neighbourhoods encompass and surround the University of Toronto. This papers seeks to determine a correlation between the university's presence and assault rates, providing insights that may inform campus safety strategies and policy."
+abstract: "Using data from OpenDataToronto, this paper examines the trends in assault rates from 2014 to 2023 across 13 of Toronto’s 158 neighbourhoods recognized by the City of Toronto. These 13 neighbourhoods encompass and surround the University of Toronto. This paper reveals a correlation between the university's presence and higher assault rates, providing insights that may inform campus safety strategies and policy."
 format: pdf
 toc: true
 number-sections: true
